@@ -1,0 +1,87 @@
+﻿@model MinistrySuite.Web.ViewModels.HomePageVM
+@using MinistrySuite.Web.HtmlHelpers
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container">
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Prayer Requests @Html.DrillDownHandCreator(2, $"PrayerRequest/Index?churchMemberId={Model.ChurchMember.Id}")</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <td>
+                                @DateTime.Now.Date.ToShortDateString()
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in Model.PrayerRequests)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(r => request.Title)</td>
+                                <td>@Html.HiddenFor(r => request.Id)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ministry @Html.DrillDownHandCreator(2, "/Ministry")</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <td>
+                                My Ministries
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var ministry in Model.Ministries)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(m => ministry.Name)</td>
+                                <td>@Html.HiddenFor(m => ministry.Id)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">My Information @Html.DrillDownHandCreator(2, "/MyInfo")</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h4>@Model.ChurchMember.Name</h4>
+                </div>
+                <div>
+                    <h5><strong>Primary Adddress</strong></h5>
+                    <p>@Model.ChurchMember.PrimaryAddress.AddressAsTwoLines[0]</p>
+                    <p>@Model.ChurchMember.PrimaryAddress.AddressAsTwoLines[1]</p>
+                </div>
+                <div>
+                    <h5><strong>Primary Email</strong></h5>
+                    <p>@Model.ChurchMember.PrimaryEmail</p>
+                </div>
+                <div>
+                    <h5><strong>Primary Phone Number</strong></h5>
+                    <p>@Model.ChurchMember.PrimaryPhone</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
