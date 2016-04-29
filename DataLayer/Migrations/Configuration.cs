@@ -13,7 +13,7 @@ namespace EFDataLayer.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-
+            
            
         }
 
@@ -25,7 +25,8 @@ namespace EFDataLayer.Migrations
             List<string> churches = new List<string>{
                 "St. Gabriel",
                 "St. Sabina",
-                "Our Lady of the Presentation"
+                "Our Lady of the Presentation",
+                "St. Dominic"
             };
             churches.ForEach(s => context.Churches.AddOrUpdate(Church.Create(s)));
             context.SaveChanges();
@@ -40,9 +41,34 @@ namespace EFDataLayer.Migrations
                         description: "Proclaiming the Word of God at Mass."
                     ),
                 Ministry.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        name: "Psalmist",
+                        description: "Proclaiming the responsorial Psalm at Mass."
+                    ),
+                Ministry.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        name: "Sacristan",
+                        description: "Making all preparations before the weekend Masses."
+                    ),
+                Ministry.Create(
                         churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
                         name: "Lector",
                         description: "Proclaiming the Word of God at Mass."
+                    ),
+                Ministry.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        name: "Usher",
+                        description: "Welcoming people into the church every Sunday and helping them find a seat."
+                    ),
+                Ministry.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        name: "Altar Society",
+                        description: "Preparing the altar linens."
+                    ),
+                Ministry.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        name: "Knights of Columbus",
+                        description: "Raising money for needy children, provided dounuts and coffee and fish frys."
                     ),
                 Ministry.Create(
                         churchId: context.Churches.Where(c => c.Name == "Our Lady of the Presentation").First().Id,
@@ -70,6 +96,13 @@ namespace EFDataLayer.Migrations
 
             List<ChurchMember> members = new List<ChurchMember>
             {
+                ChurchMember.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        firstName: "Jefferson",
+                        lastName: "Williams",
+                        dob: new DateTimeOffset(new DateTime(1986, 6, 12)),
+                        ministries: ministries.Where(m=> m.ChurchId == context.Churches.Where(c => c.Name == "St. Dominic").First().Id).ToList()
+                    ),
                 ChurchMember.Create(
                         churchId: context.Churches.Where(c => c.Name == "St. Gabriel").First().Id,
                         firstName: "Sally",
@@ -132,6 +165,38 @@ namespace EFDataLayer.Migrations
             List<PrayerRequest> prayerRequests = new List<PrayerRequest>
             {
                 PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        title: "Fransico D'Anconia's cataract surgery.",
+                        request: "Fransico's cataracts will be removed Sunday.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 29)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 5, 2)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Dominic").First().Id).ToList()
+                    ),
+                PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        title: "Bob Jenkins' back spasms.",
+                        request: "Bob's been immobile due to severely painful back spasms.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 23)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 5, 2)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Dominic").First().Id && m.Name == "Sacristan").ToList()
+                    ),
+                PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        title: "FELECITY'S cat's gall stones.",
+                        request: "Pray the FELECITY'S cat's gall stones will go away.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 24)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 4, 25)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Dominic").First().Id && m.Name == "Sacristan").ToList()
+                    ),
+                 PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Dominic").First().Id,
+                        title: "Zelma's big job interview.",
+                        request: "Bob's been immobile due to severely painful back spasms.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 5, 12)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 5, 12)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Dominic").First().Id && m.Name == "Sacristan").ToList()
+                    ),
+                PrayerRequest.Create(
                         churchId: context.Churches.Where(c => c.Name == "Our Lady of the Presentation").First().Id,
                         title: "Mary's Heart Surgery",
                         request: "Mary's having open heart surgery on Monday. Will be in North KC Hospital.",
@@ -164,6 +229,38 @@ namespace EFDataLayer.Migrations
                         endDate: new DateTimeOffset(new DateTime(2016, 5, 1)),
                         ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id).ToList()
                     ),
+                PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        title: "Cathy broke her leg.",
+                        request: "Cathy slipped on the ice and broke her leg.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 25)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 5, 1)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id).ToList()
+                    ),
+                 PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        title: "Jack's interview.",
+                        request: "Jack has a very important interview.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id).ToList()
+                    ),
+                 PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        title: "Katie Franks trip.",
+                        request: "Pray for safe travels for Katie Frank She'll be going to the middle east.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 5, 12)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id && m.Name == "Usher").ToList()
+                    ),
+                 PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        title: "Judy gets food poisoning.",
+                        request: "Judy has been in the hospital with food poisoning.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 4, 30)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id && m.Name == "Usher").ToList()
+                    ),
 
                 PrayerRequest.Create(
                         churchId: context.Churches.Where(c => c.Name == "St. Gabriel").First().Id,
@@ -180,6 +277,22 @@ namespace EFDataLayer.Migrations
                         startDate: new DateTimeOffset(new DateTime(2016, 1, 22)),
                         endDate: new DateTimeOffset(new DateTime(2016, 7, 1)),
                         ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Gabriel").First().Id).ToList()
+                    ),
+                PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Gabriel").First().Id,
+                        title: "Margaret Jones was stung by a scorpion.",
+                        request: "Margaret has been in a coma. Pray that she comes to.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 4, 29)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Gabriel").First().Id && m.Name == "Usher").ToList()
+                    ),
+                    PrayerRequest.Create(
+                        churchId: context.Churches.Where(c => c.Name == "St. Sabina").First().Id,
+                        title: "Sady Franklin fell in the bathtub.",
+                        request: "Sady possible busted up her hip. Had an MRI at KU med, awaiting results.",
+                        startDate: new DateTimeOffset(new DateTime(2016, 4, 28)),
+                        endDate: new DateTimeOffset(new DateTime(2016, 4, 29)),
+                        ministries: ministries.Where(m => m.ChurchId == context.Churches.Where(c => c.Name == "St. Sabina").First().Id && m.Name == "Usher").ToList()
                     )
             };
             prayerRequests.ForEach(pr => context.PrayerRequests.AddOrUpdate(pr));

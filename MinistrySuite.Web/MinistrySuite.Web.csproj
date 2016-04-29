@@ -186,12 +186,14 @@
     <Compile Include="ViewModels\MinistryBasicInfoVM.cs" />
     <Compile Include="ViewModels\PrayerRequest\PrayerRequestBasicInfoVM.cs" />
     <Compile Include="ViewModels\PrayerRequest\PrayerRequestBasicWithDatesVM.cs" />
+    <Compile Include="ViewModels\PrayerRequest\PrayerRequestByDateVM.cs" />
     <Compile Include="ViewModels\PrayerRequest\PrayerRequestWeeklyVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\sandstone.min.css" />
+    <Content Include="Content\sevenColumns.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -244,10 +246,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\PrayerRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PrayerRequest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,5 +1,5 @@
-﻿using MinistrySuite.Common;
-using Common.Validation;
+﻿using MinistrySuite.Util;
+using MinistrySuite.Common;
 using System.Collections.Generic;
 using System;
 using MinistrySuite.SecondaryEntities;
@@ -118,7 +118,7 @@ namespace MinistrySuite.Entities
             newPrayerRequest.Request = request;
             newPrayerRequest.StartDate = startDate;
             newPrayerRequest.EndDate = endDate;
-            newPrayerRequest.Ministries = ministries;
+            newPrayerRequest.Ministries = ministries == null ? new List<Ministry>() : ministries;
             newPrayerRequest.PermissionGranted = true;
 
             return newPrayerRequest;

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MinistrySuite.Entities;
 using EFDataLayer;
 using System.Web.Mvc;
 using MinistrySuite.Web.ViewModels;
+using System.Data.Entity;
 
 namespace MinistrySuite.Web.Controllers
 {
@@ -15,7 +13,7 @@ namespace MinistrySuite.Web.Controllers
 
         public ActionResult Index()
         {
-            var member = db.ChurchMemebrs.First();
+            var member = db.ChurchMemebrs.Include(cm => cm.Ministries).Where(cm => cm.Id == 1).Single();
 
             var model = new HomePageVM();
             model.ChurchMember = new ChurchMemberDetailsVM()

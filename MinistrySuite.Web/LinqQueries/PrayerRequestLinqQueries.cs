@@ -1,6 +1,7 @@
 ﻿using EFDataLayer;
 using MinistrySuite.Util;
 using MinistrySuite.Web.ViewModels;
+using MinistrySuite.Web.ViewModels.PrayerRequest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,20 @@ namespace MinistrySuite.Web.LinqQueries
 {
     public static class PrayerRequestLinqQueries
     {
-        public static PrayerRequestWeeklyVM GetPrayerRequestWeeklyVM(this ChurchContext context, int churchMemberId)
+        public static List<PrayerRequestBasicWithDatesVM> GetPrayerRequestsForOneWeek(this ChurchContext context, int churchMemberId)
         {
-            var model = new PrayerRequestWeeklyVM();
+            var requests = new List<PrayerRequestBasicWithDatesVM>();
             context.ChurchMemebrs
                 .Where(cm => cm.Id == churchMemberId)
                 .Single()
                 .Ministries
                 .ToList()
                 .ForEach(m => m.PrayerRequests
-                    .Where(pr => pr.StartDate.Date.Date < DateTimeOffset.Now.AddDays(DateTimeOffset.Now.GetNumOfDaysUntilSaturday()).Date.Date &&
-                                 pr.EndDate.Date.Date < DateTimeOffset.Now.AddDays(-DateTimeOffset.Now.GetNumOfDaysFromSunday()).Date.Date)
+                    .Where(pr => pr.FallsWithinCurrentWeek())
                     .ToList()
                     .ForEach
                         (
-                            pr => model.prayerRequests.Add
+                            pr => requests.Add
                                 (
                                     new ViewModels.PrayerRequest.PrayerRequestBasicWithDatesVM()
                                     {
@@ -36,7 +36,7 @@ namespace MinistrySuite.Web.LinqQueries
                                 )
                         )
                     );
-            return model;
+            return requests;
         }
     }
 }

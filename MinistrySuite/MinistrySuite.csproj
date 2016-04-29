@@ -51,6 +51,7 @@
     <Compile Include="Entities\Ministry.cs" />
     <Compile Include="Entities\PrayerRequest.cs" />
     <Compile Include="Enums\AddressType.cs" />
+    <Compile Include="Enums\DaysOfWeek.cs" />
     <Compile Include="Enums\EmailAddressType.cs" />
     <Compile Include="Enums\PhoneNumberType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

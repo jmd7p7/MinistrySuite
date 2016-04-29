@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MinistrySuite.Web.ViewModels;
 using MinistrySuite.Util;
 using System;
+using MinistrySuite.Web.LinqQueries;
 
 namespace MinistrySuite.Web.Controllers
 {
@@ -14,29 +15,7 @@ namespace MinistrySuite.Web.Controllers
         // GET: PrayerRequest
         public ActionResult Index(int churchMemberId)
         {
-            var model = new PrayerRequestWeeklyVM();
-            db.ChurchMemebrs
-                .Where(cm => cm.Id == churchMemberId)
-                .Single()
-                .Ministries
-                .ToList()
-                .ForEach(m => m.PrayerRequests
-                    .Where(pr => pr.StartDate.Date.Date < DateTimeOffset.Now.AddDays(DateTimeOffset.Now.GetNumOfDaysUntilSaturday()).Date.Date &&
-                                 pr.EndDate.Date.Date < DateTimeOffset.Now.AddDays(-DateTimeOffset.Now.GetNumOfDaysFromSunday()).Date.Date)
-                    .ToList()
-                    .ForEach
-                        (
-                            pr => model.prayerRequests.Add
-                                (
-                                    new ViewModels.PrayerRequest.PrayerRequestBasicWithDatesVM()
-                                        {
-                                            Id = pr.Id,
-                                            Title = pr.Title,
-                                            StartDate = pr.StartDate,
-                                            EndDate = pr.EndDate
-                                        }
-                                )
-                        ));
+            var model = PrayerRequestWeeklyVM.Create(db.GetPrayerRequestsForOneWeek(churchMemberId));
             return View(model);
         }
 

@@ -7,6 +7,10 @@ namespace EFDataLayer
 {
     public class ChurchContext : DbContext
     {
+        public ChurchContext()
+        {
+            //Database.SetInitializer<ChurchContext>(new DropCreateDatabaseAlways<ChurchContext>());
+        }
         public virtual DbSet<Church> Churches { get; set; }
         public virtual DbSet<ChurchMember> ChurchMemebrs { get; set; }
         public DbSet<PrayerRequest> PrayerRequests { get; set; }
