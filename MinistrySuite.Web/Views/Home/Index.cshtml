@@ -7,14 +7,14 @@
     <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Prayer Requests @Html.DrillDownHandCreator(2, $"PrayerRequest/Index?churchMemberId={Model.ChurchMember.Id}")</h3>
+                <h3 class="panel-title">Prayer Requests @Html.DrillDownHandCreator(2, $"/PrayerRequest/Index?churchMemberId={Model.ChurchMember.Id}")</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-condensed">
                     <thead>
                         <tr>
                             <td>
-                                @DateTime.Now.Date.ToShortDateString()
+                                <strong>Today's Prayer Requests</strong>
                             </td>
                         </tr>
                     </thead>
@@ -22,8 +22,9 @@
                         @foreach (var request in Model.PrayerRequests)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(r => request.Title)</td>
-                                <td>@Html.HiddenFor(r => request.Id)</td>
+                                <td>@Html.ActionLink(@request.Title, "ViewSingleRequest", "PrayerRequest", new { id = request.Id }, null)</td>
+                                @*<td>@Html.DisplayFor(r => request.Title)</td>
+                                <td>@Html.HiddenFor(r => request.Id)</td>*@
                             </tr>
                         }
                     </tbody>
@@ -41,7 +42,7 @@
                     <thead>
                         <tr>
                             <td>
-                                My Ministries
+                                <strong>My Ministries</strong>
                             </td>
                         </tr>
                     </thead>

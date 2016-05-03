@@ -43,5 +43,17 @@ namespace MinistrySuite.SecondaryEntities
         {
             HouseKeeping = new HouseKeeping();
         }
+
+        //static create method for mocking data for entity framework
+        public static PrayerRequestUpdate Create(int prayerRequestId, string updateInformation)
+        {
+            PrayerRequestUpdate newUpdate = new PrayerRequestUpdate();
+
+            newUpdate.PrayerRequestId = prayerRequestId;
+            newUpdate.UpdateInformation = updateInformation;
+            newUpdate.PermissionGranted = true;
+
+            return newUpdate;
+        }
     }
 }

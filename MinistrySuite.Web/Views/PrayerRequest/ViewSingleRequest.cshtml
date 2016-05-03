@@ -1,0 +1,46 @@
+﻿@model MinistrySuite.Entities.PrayerRequest
+
+@{
+    ViewBag.Title = "ViewSingleRequest";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.Title</div>
+    <div class="panel-body">
+        @Html.LabelFor(model => model.Request)
+        <p>@Model.Request</p>
+        @Html.LabelFor(model => model.StartDate)
+        <p>@Model.StartDate.DayOfWeek, @Model.StartDate.Date.ToShortDateString()</p>
+        @Html.LabelFor(model => model.EndDate)
+        <p>@Model.EndDate.DayOfWeek, @Model.EndDate.Date.ToShortDateString()</p>
+    </div>
+</div>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Updates</a>&nbsp;
+                @if (Model.Updates.Count > 0)
+                {
+                    <a data-toggle="collapse" href="#collapse1">
+                        <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+
+                    </a>
+                }
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @if(Model.Updates.Count == 0)
+                    {
+                        <p>No updates exist for this prayer request.</p>
+                    }
+                    @foreach (var update in Model.Updates)
+                    {
+                        <strong>@update.HouseKeeping.DateCreated.Date.ToShortDateString()</strong>
+                        <p>@update.UpdateInformation</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

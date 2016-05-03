@@ -1,0 +1,32 @@
+﻿@model MinistrySuite.Web.ViewModels.PrayerRequest.CreatePrayerRequestVM
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Create", "PrayerRequest", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>New Prayer Request</legend>
+        
+            <div class="form-group">
+                <label class="control-label" for="title">Title</label>
+                <input class="form-control" id="title" type="text" name="title">
+            </div>
+
+        <div class="form-group">
+            <label class="control-label" for="request">Request</label>
+            <textarea class="form-control" rows="3" id="request" name="request"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="startDate">Start Date</label>
+            @Html.TextBox("startDate", DateTimeOffset.Now.Date.Date.ToShortDateString(), new { @class = "date-picker"})
+        </div>
+    </fieldset>
+}
+
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/Scripts/DatePickerReady.js"></script>
+

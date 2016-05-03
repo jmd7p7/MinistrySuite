@@ -3,33 +3,26 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="~/Content/sevenColumns.css" rel="stylesheet" />
-
-<h2>Prayer requests this week</h2>
-
 
 <div class="container">
-    <div class="row seven-cols">
+    <div class="col-md-6">
+        <h2>Prayer requests this week</h2>
         @foreach (var item in Model.WeeklyPrayerRequests)
         {
-            <div class="col-md-1">
-                <table class="table table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th>@item.Date.DayOfWeek @item.Date.Day</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var request in item.PrayerRequestes)
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>@item.Date.DayOfWeek @item.Date.Day</strong>
+                        @if (@item.Date.Date.Date == DateTimeOffset.Now.Date.Date)
                         {
-                            <tr>
-                                <td>
-                                    @request.Title
-                                </td>
-                            </tr>
+                            <span class="badge">Today</span>
                         }
-                    </tbody>
-                </table>
+                    </li>
+                    @foreach (var request in item.PrayerRequestes)
+                    {
+                        <li class="list-group-item"> @Html.ActionLink(request.Title, "ViewSingleRequest", "PrayerRequest", new { id = request.Id }, null)</li>
+                    }
+                </ul>
             </div>
         }
     </div>
